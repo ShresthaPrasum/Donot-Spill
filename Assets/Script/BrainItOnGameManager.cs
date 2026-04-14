@@ -20,9 +20,15 @@ public class BrainItOnGameManager : MonoBehaviour
     [SerializeField] private TMP_Text releaseTimerTextTMP;
     [SerializeField] private Text shapeCountText;
     [SerializeField] private Text releaseTimerText;
+    [SerializeField] private TMP_Text goalHoldTimerTextTMP;
+    [SerializeField] private Text goalHoldTimerText;
     [SerializeField] private string shapeCountPrefix = "Shapes: ";
     [SerializeField] private string releaseTimerPrefix = "Time Left: ";
     [SerializeField] private string releaseTimerSuffix = "s";
+    [SerializeField] private string goalHoldTimerPrefix = "Win In: ";
+    [SerializeField] private string goalHoldTimerSuffix = "s";
+    [SerializeField] private int goalHoldTimerDecimals = 1;
+    [SerializeField] private bool hideGoalHoldTimerWhenIdle = true;
     [SerializeField] private int releaseTimerDecimals = 0;
     [SerializeField] private float levelTimeLimitSeconds = 20f;
 
@@ -120,6 +126,7 @@ public class BrainItOnGameManager : MonoBehaviour
         SetLevelEndMenuVisible(false);
         UpdateShapeCountText();
         UpdateReleaseTimerText();
+        UpdateGoalHoldTimerUI(0f);
 
         if (lineDrawingController != null)
         {
@@ -145,6 +152,7 @@ public class BrainItOnGameManager : MonoBehaviour
         }
 
         StopReleaseTimer();
+        UpdateGoalHoldTimerUI(1f);
         UpdateAndShowLevelEndMenu();
     }
 
@@ -267,6 +275,8 @@ public class BrainItOnGameManager : MonoBehaviour
     private void HandleHoldProgress(float progress)
     {
         if (isLevelWon) return;
+
+        UpdateGoalHoldTimerUI(progress);
     }
 
     private void HandleLineFinished()
@@ -327,6 +337,34 @@ public class BrainItOnGameManager : MonoBehaviour
         if (releaseTimerText != null)
         {
             releaseTimerText.text = textValue;
+        }
+    }
+
+    private void UpdateGoalHoldTimerUI(float holdProgress)
+    {
+        if (goalHoldTimerTextTMP == null && goalHoldTimerText == null)
+        {
+            return;
+        }
+
+        float requiredHoldTime = levelGoalZone != null ? Mathf.Max(0f, levelGoalZone.RequiredHoldTime) : 0f;
+        float clampedProgress = Mathf.Clamp01(holdProgress);
+        float remainingSeconds = Mathf.Max(0f, requiredHoldTime * (1f - clampedProgress));
+        int decimals = Mathf.Clamp(goalHoldTimerDecimals, 0, 3);
+        string textValue = goalHoldTimerPrefix + remainingSeconds.ToString("F" + decimals) + goalHoldTimerSuffix;
+
+        bool isVisible = !hideGoalHoldTimerWhenIdle || clampedProgress > 0f;
+
+        if (goalHoldTimerTextTMP != null)
+        {
+            goalHoldTimerTextTMP.text = textValue;
+            goalHoldTimerTextTMP.gameObject.SetActive(isVisible);
+        }
+
+        if (goalHoldTimerText != null)
+        {
+            goalHoldTimerText.text = textValue;
+            goalHoldTimerText.gameObject.SetActive(isVisible);
         }
     }
 

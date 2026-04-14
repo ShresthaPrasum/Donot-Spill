@@ -15,6 +15,8 @@ public class GoalZone : MonoBehaviour
     public event Action OnGoalAchieved;
     public event Action<float> OnHoldProgress; // Sends 0.0 to 1.0 progress
 
+    public float RequiredHoldTime => requiredHoldTime;
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (goalAchieved) return;
