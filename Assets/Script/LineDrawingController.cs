@@ -339,6 +339,7 @@ public class LineDrawingController : MonoBehaviour
         }
 
         isCurrentlyDrawing = false;
+
         DrawingStopped?.Invoke();
 
         if (lineWorldPoints.Count < 2)

@@ -129,7 +129,7 @@ public class BrainItOnGameManager : MonoBehaviour
 
         if (freezeBallWhileDrawing && ballRigidbody == null)
         {
-            Debug.LogWarning("BrainItOnGameManager: Ball Rigidbody2D is not assigned and could not be auto-detected.");
+            return;
         }
     }
 
@@ -146,9 +146,6 @@ public class BrainItOnGameManager : MonoBehaviour
 
         StopReleaseTimer();
         UpdateAndShowLevelEndMenu();
-
-        Debug.Log("LEVEL PASSED! You achieved the goal.");
-        // Trigger Win UI here
     }
 
     private void HandleDrawingStarted()
@@ -168,10 +165,7 @@ public class BrainItOnGameManager : MonoBehaviour
 
         if (!hasReleasedInitialBall)
         {
-            if (ballRigidbody != null && ballFrozenByDrawing && hasCachedBallConstraints)
-            {
-                ballRigidbody.constraints = cachedBallConstraints;
-            }
+            ForceUnfreezeBall();
 
             ballFrozenByDrawing = false;
             hasReleasedInitialBall = true;
@@ -201,7 +195,28 @@ public class BrainItOnGameManager : MonoBehaviour
         ballRigidbody.linearVelocity = Vector2.zero;
         ballRigidbody.angularVelocity = 0f;
         ballRigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
+        ballRigidbody.simulated = true;
         ballFrozenByDrawing = true;
+    }
+
+    private void ForceUnfreezeBall()
+    {
+        if (ballRigidbody == null)
+        {
+            return;
+        }
+
+        if (hasCachedBallConstraints)
+        {
+            ballRigidbody.constraints = cachedBallConstraints;
+        }
+        else
+        {
+            ballRigidbody.constraints = RigidbodyConstraints2D.None;
+        }
+
+        ballRigidbody.simulated = true;
+        ballRigidbody.WakeUp();
     }
 
     private void TryResolveBallRigidbody()
@@ -252,12 +267,6 @@ public class BrainItOnGameManager : MonoBehaviour
     private void HandleHoldProgress(float progress)
     {
         if (isLevelWon) return;
-
-        // Progress goes from 0.0 to 1.0. Display this on a UI bar to show player they are almost there
-        if (progress > 0f)
-        {
-            Debug.Log($"Holding Target... {(progress * 100).ToString("F0")}%");
-        }
     }
 
     private void HandleLineFinished()
@@ -292,8 +301,7 @@ public class BrainItOnGameManager : MonoBehaviour
     {
         int finishedShapeCount = lineDrawingController != null ? lineDrawingController.FinishedLineCount : 0;
         int totalShapeCount = lineDrawingController != null ? Mathf.Max(0, lineDrawingController.MaximumLinesPerRound) : 0;
-        int remainingShapeCount = Mathf.Max(0, totalShapeCount - finishedShapeCount);
-        string textValue = shapeCountPrefix + remainingShapeCount + "/" + totalShapeCount;
+        string textValue = finishedShapeCount + "/" + totalShapeCount;
 
         if (shapeCountTextTMP != null)
         {
@@ -336,8 +344,6 @@ public class BrainItOnGameManager : MonoBehaviour
         {
             lineDrawingController.SetDrawingAllowed(false);
         }
-
-        Debug.Log("TIME UP! Level failed.");
         SetLevelEndMenuVisible(false);
     }
 
@@ -350,7 +356,6 @@ public class BrainItOnGameManager : MonoBehaviour
     {
         if (string.IsNullOrWhiteSpace(homeSceneName))
         {
-            Debug.LogWarning("BrainItOnGameManager: Home Scene Name is empty.");
             return;
         }
 
@@ -362,7 +367,6 @@ public class BrainItOnGameManager : MonoBehaviour
         int nextBuildIndex = SceneManager.GetActiveScene().buildIndex + 1;
         if (nextBuildIndex >= SceneManager.sceneCountInBuildSettings)
         {
-            Debug.LogWarning("BrainItOnGameManager: No next level found in Build Settings.");
             return;
         }
 
