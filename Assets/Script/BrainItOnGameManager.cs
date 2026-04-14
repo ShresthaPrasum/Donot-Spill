@@ -414,21 +414,28 @@ public class BrainItOnGameManager : MonoBehaviour
     private void UpdateAndShowLevelEndMenu()
     {
         int shapesNeededCount = lineDrawingController != null ? lineDrawingController.FinishedLineCount : 0;
+
         float timeTakenSeconds = hasReleaseTimerStarted
             ? Mathf.Max(0f, levelTimeLimitSeconds - releaseTimerSecondsRemaining)
             : 0f;
 
+
         int decimals = Mathf.Clamp(releaseTimerDecimals, 0, 3);
+
         string shapesNeededTextValue = levelEndShapesNeededPrefix + shapesNeededCount;
+
         string timeTakenTextValue = levelEndTimeTakenPrefix + timeTakenSeconds.ToString("F" + decimals) + levelEndTimeTakenSuffix;
+        
 
         if (levelEndShapesNeededTextTMP != null)
         {
+
             levelEndShapesNeededTextTMP.text = shapesNeededTextValue;
         }
 
         if (levelEndShapesNeededText != null)
         {
+           
             levelEndShapesNeededText.text = shapesNeededTextValue;
         }
 
@@ -439,6 +446,7 @@ public class BrainItOnGameManager : MonoBehaviour
 
         if (levelEndTimeTakenText != null)
         {
+
             levelEndTimeTakenText.text = timeTakenTextValue;
         }
 
@@ -449,6 +457,7 @@ public class BrainItOnGameManager : MonoBehaviour
     {
         if (levelEndMenuRoot != null)
         {
+            
             levelEndMenuRoot.SetActive(isVisible);
         }
     }

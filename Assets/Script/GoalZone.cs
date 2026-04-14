@@ -13,13 +13,17 @@ public class GoalZone : MonoBehaviour
     private bool goalAchieved;
 
     public event Action OnGoalAchieved;
-    public event Action<float> OnHoldProgress; // Sends 0.0 to 1.0 progress
+    public event Action<float> OnHoldProgress;
 
     public float RequiredHoldTime => requiredHoldTime;
+    
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+
         if (goalAchieved) return;
+
+
 
         if (other.CompareTag(targetTagName))
         {
@@ -34,11 +38,13 @@ public class GoalZone : MonoBehaviour
     {
         if (goalAchieved) return;
 
-        // Failsafe in case trigger enter was missed
+
         if (other.CompareTag(targetTagName) && holdRoutine == null)
         {
+
             holdRoutine = StartCoroutine(HoldTimerRoutine());
         }
+
     }
 
     private void OnTriggerExit2D(Collider2D other)
@@ -51,7 +57,7 @@ public class GoalZone : MonoBehaviour
             {
                 StopCoroutine(holdRoutine);
                 holdRoutine = null;
-                OnHoldProgress?.Invoke(0f); // Reset progress
+                OnHoldProgress?.Invoke(0f);
             }
         }
     }
