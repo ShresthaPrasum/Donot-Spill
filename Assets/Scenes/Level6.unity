@@ -145,7 +145,7 @@ Transform:
   m_GameObject: {fileID: 37179090}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.3, y: -2.39, z: 0}
+  m_LocalPosition: {x: 2.34, y: -2.52, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1001,11 +1001,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1289688799649415459, guid: 235a1ebbcf7d455458b49c841bc7ff68, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.2656
+      value: 0.20999968
       objectReference: {fileID: 0}
     - target: {fileID: 1289688799649415459, guid: 235a1ebbcf7d455458b49c841bc7ff68, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.3528113
+      value: 2.88
       objectReference: {fileID: 0}
     - target: {fileID: 1289688799649415459, guid: 235a1ebbcf7d455458b49c841bc7ff68, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1198,7 +1198,7 @@ Transform:
   m_GameObject: {fileID: 431271158}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.83, y: 3.82, z: 0}
+  m_LocalPosition: {x: 0.20999968, y: 3.63, z: 0}
   m_LocalScale: {x: 0.32825, y: 0.32825, z: 0.32825}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2394,11 +2394,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1289688799649415459, guid: 235a1ebbcf7d455458b49c841bc7ff68, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.95
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 1289688799649415459, guid: 235a1ebbcf7d455458b49c841bc7ff68, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.57
+      value: -1.59
       objectReference: {fileID: 0}
     - target: {fileID: 1289688799649415459, guid: 235a1ebbcf7d455458b49c841bc7ff68, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3580,7 +3580,7 @@ MonoBehaviour:
   levelEndTimeTakenPrefix: ' '
   levelEndTimeTakenSuffix: s
   homeSceneName: Levels
-  currentLevelNumberOverride: 0
+  currentLevelNumberOverride: 6
 --- !u!1 &1734640078
 GameObject:
   m_ObjectHideFlags: 0
@@ -3636,7 +3636,7 @@ MonoBehaviour:
   lineGravityAfterRelease: 1
   freezeLineRotationAfterRelease: 0
   massPerUnitLength: 0.5
-  maximumLinesPerRound: 3
+  maximumLinesPerRound: 2
   lockDrawingAfterLineLimit: 1
   stopLineAtColliders: 1
   lineCanCrossItself: 1
@@ -3967,7 +3967,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 4
+  m_text: 6
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 7bb9e55a770c0c54baa1d48243362b72, type: 2}
   m_sharedMaterial: {fileID: 9076876183996257108, guid: 7bb9e55a770c0c54baa1d48243362b72, type: 2}
