@@ -210,18 +210,41 @@ public class LineDrawingController : MonoBehaviour
         bool hitBlockingCollider = TryGetClampedPointAtBlockingCollider(lastPoint, worldPoint, out Vector2 clampedWorldPoint);
         if (hitBlockingCollider)
         {
-            worldPoint = clampedWorldPoint;
+            float blockedSegmentLength = Vector2.Distance(lastPoint, clampedWorldPoint);
+
+            if (blockedSegmentLength >= minimumDistanceBetweenPoints)
+            {
+                float remainingLengthToEdge = maximumLineLength - currentLineLength;
+                if (remainingLengthToEdge <= 0f)
+                {
+                    FinishCurrentLine();
+                    return;
+                }
+
+                if (blockedSegmentLength > remainingLengthToEdge)
+                {
+                    Vector2 directionToEdge = (clampedWorldPoint - lastPoint).normalized;
+                    clampedWorldPoint = lastPoint + directionToEdge * remainingLengthToEdge;
+                    blockedSegmentLength = remainingLengthToEdge;
+                }
+
+                currentLineLength += blockedSegmentLength;
+                AddPointToCurrentLine(clampedWorldPoint);
+
+                if (currentLineLength >= maximumLineLength - 0.0001f)
+                {
+                    FinishCurrentLine();
+                }
+            }
+
+            // Do not finish the line when hitting a blocker; just skip drawing through it.
+            return;
         }
 
         float newSegmentLength = Vector2.Distance(lastPoint, worldPoint);
 
         if (newSegmentLength < minimumDistanceBetweenPoints)
         {
-            if (hitBlockingCollider)
-            {
-                FinishCurrentLine();
-            }
-
             return;
         }
 
@@ -241,12 +264,6 @@ public class LineDrawingController : MonoBehaviour
 
         currentLineLength += newSegmentLength;
         AddPointToCurrentLine(worldPoint);
-
-        if (hitBlockingCollider)
-        {
-            FinishCurrentLine();
-            return;
-        }
 
         if (currentLineLength >= maximumLineLength - 0.0001f)
         {
