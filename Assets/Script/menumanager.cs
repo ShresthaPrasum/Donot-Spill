@@ -17,7 +17,6 @@ public class MenuManager : MonoBehaviour
 
     [Header("Main Menu")]
     [SerializeField] private string levelsSceneName = "Levels";
-
     [Header("Level Pages")]
     [SerializeField] private string levelsPage1SceneName = "Levels";
     [SerializeField] private string levelsPage2SceneName = "Levels1";
