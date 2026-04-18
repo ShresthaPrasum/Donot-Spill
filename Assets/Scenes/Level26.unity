@@ -2217,8 +2217,12 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1289688799649415459, guid: 235a1ebbcf7d455458b49c841bc7ff68, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.0374519
+      objectReference: {fileID: 0}
+    - target: {fileID: 1289688799649415459, guid: 235a1ebbcf7d455458b49c841bc7ff68, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.08
+      value: 0.1142
       objectReference: {fileID: 0}
     - target: {fileID: 1289688799649415459, guid: 235a1ebbcf7d455458b49c841bc7ff68, type: 3}
       propertyPath: m_LocalPosition.y
@@ -3709,7 +3713,7 @@ MonoBehaviour:
   lineGravityAfterRelease: 1
   freezeLineRotationAfterRelease: 0
   massPerUnitLength: 0.5
-  maximumLinesPerRound: 2
+  maximumLinesPerRound: 4
   lockDrawingAfterLineLimit: 1
   stopLineAtColliders: 1
   lineCanCrossItself: 1

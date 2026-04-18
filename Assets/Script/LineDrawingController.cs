@@ -617,8 +617,11 @@ public class LineDrawingController : MonoBehaviour
         if (Touchscreen.current != null)
         {
             var touch = Touchscreen.current.primaryTouch;
-            screenPoint = touch.position.ReadValue();
-            return touch.press.wasPressedThisFrame;
+            if (touch.press.wasPressedThisFrame)
+            {
+                screenPoint = touch.position.ReadValue();
+                return true;
+            }
         }
 
         if (Mouse.current != null)
@@ -648,8 +651,11 @@ public class LineDrawingController : MonoBehaviour
         if (Touchscreen.current != null)
         {
             var touch = Touchscreen.current.primaryTouch;
-            screenPoint = touch.position.ReadValue();
-            return touch.press.isPressed;
+            if (touch.press.isPressed)
+            {
+                screenPoint = touch.position.ReadValue();
+                return true;
+            }
         }
 
         if (Mouse.current != null)
@@ -679,8 +685,11 @@ public class LineDrawingController : MonoBehaviour
         if (Touchscreen.current != null)
         {
             var touch = Touchscreen.current.primaryTouch;
-            screenPoint = touch.position.ReadValue();
-            return touch.press.wasReleasedThisFrame;
+            if (touch.press.wasReleasedThisFrame)
+            {
+                screenPoint = touch.position.ReadValue();
+                return true;
+            }
         }
 
         if (Mouse.current != null)
